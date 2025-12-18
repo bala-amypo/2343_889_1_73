@@ -9,8 +9,6 @@ public class WorkflowStepConfig {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-   
     private Long templateId;
 
     private Integer levelNumber;
