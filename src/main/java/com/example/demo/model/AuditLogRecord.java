@@ -1,10 +1,10 @@
-package com.example.demo.demo;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "audit_logs")
+@Table(name = "audit_log_records")
 public class AuditLogRecord {
 
     @Id
@@ -12,27 +12,23 @@ public class AuditLogRecord {
     private Long id;
 
     private Long requestId;
+    private String action;
+    private String performedBy;
+    private LocalDateTime performedAt;
 
-    private String eventType;
-
-    private String details;
-
-    private LocalDateTime loggedAt = LocalDateTime.now();
-
-    public AuditLogRecord() {}
-
-    // getters & setters
+    // getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
     public Long getRequestId() { return requestId; }
     public void setRequestId(Long requestId) { this.requestId = requestId; }
 
-    public String getEventType() { return eventType; }
-    public void setEventType(String eventType) { this.eventType = eventType; }
+    public String getAction() { return action; }
+    public void setAction(String action) { this.action = action; }
 
-    public String getDetails() { return details; }
-    public void setDetails(String details) { this.details = details; }
+    public String getPerformedBy() { return performedBy; }
+    public void setPerformedBy(String performedBy) { this.performedBy = performedBy; }
 
-    public LocalDateTime getLoggedAt() { return loggedAt; }
+    public LocalDateTime getPerformedAt() { return performedAt; }
+    public void setPerformedAt(LocalDateTime performedAt) { this.performedAt = performedAt; }
 }
