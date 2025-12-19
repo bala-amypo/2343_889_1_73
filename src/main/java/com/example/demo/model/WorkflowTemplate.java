@@ -3,25 +3,28 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "workflow_templates")
+@Table(
+    name = "workflow_templates",
+    uniqueConstraints = @UniqueConstraint(columnNames = "template_name")
+)
 public class WorkflowTemplate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "template_name", nullable = false, unique = true)
     private String templateName;
 
     private String description;
 
+    @Column(nullable = false)
     private Integer totalLevels;
 
-    private Boolean active;
+    @Column(nullable = false)
+    private Boolean active = true;
 
-    public WorkflowTemplate() {}
-
-   
+    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
