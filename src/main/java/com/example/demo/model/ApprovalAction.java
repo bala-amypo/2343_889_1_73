@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
@@ -17,15 +17,13 @@ public class ApprovalAction {
 
     private Integer levelNumber;
 
-    private String action; 
+    private String action; // APPROVED / REJECTED
 
     private String comments;
 
     private LocalDateTime actionDate = LocalDateTime.now();
 
-    public ApprovalAction() {}
-
-  
+    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -45,4 +43,5 @@ public class ApprovalAction {
     public void setComments(String comments) { this.comments = comments; }
 
     public LocalDateTime getActionDate() { return actionDate; }
+    public void setActionDate(LocalDateTime actionDate) { this.actionDate = actionDate; }
 }
