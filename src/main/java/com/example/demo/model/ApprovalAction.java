@@ -17,13 +17,12 @@ public class ApprovalAction {
 
     private Integer levelNumber;
 
-    private String action; // APPROVED / REJECTED
+    private String action; 
 
     private String comments;
 
     private LocalDateTime actionDate = LocalDateTime.now();
 
-    // Getters & Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

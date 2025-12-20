@@ -23,25 +23,17 @@ public class UserServiceImpl implements UserService {
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
-    /**
-     * Register a new user with role
-     */
     @Override
     public User registerUser(User user, String roleName) {
-
-        // Find role
         Role role = roleRepository.findByName(roleName)
                 .orElseThrow(() ->
                         new RuntimeException("Role not found: " + roleName));
 
-        // Encrypt password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        // Assign role
         user.getRoles().add(role);
 
-        // Save user
+        
         return userRepository.save(user);
     }
 
