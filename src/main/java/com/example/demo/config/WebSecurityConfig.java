@@ -26,11 +26,20 @@ public class WebSecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
+                
+                .requestMatchers("/").permitAll()
+
+                
                 .requestMatchers(
-                        "/auth/**",
                         "/swagger-ui/**",
-                        "/v3/api-docs/**"
+                        "/v3/api-docs/**",
+                        "/swagger-ui.html"
                 ).permitAll()
+
+                // ✅ allow auth APIs
+                .requestMatchers("/auth/**").permitAll()
+
+                // 🔒 everything else secured
                 .anyRequest().authenticated()
             )
             .addFilterBefore(
