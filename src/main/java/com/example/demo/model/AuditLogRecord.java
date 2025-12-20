@@ -6,28 +6,69 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "audit_log_records")
 public class AuditLogRecord {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private Long requestId;
-    private String action;
-    private String performedBy;
-    private LocalDateTime performedAt;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    @Column(nullable = false)
+    private String eventType;
 
-    public Long getRequestId() { return requestId; }
-    public void setRequestId(Long requestId) { this.requestId = requestId; }
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String details;
 
-    public String getAction() { return action; }
-    public void setAction(String action) { this.action = action; }
+    @Column(nullable = false)
+    private LocalDateTime loggedAt = LocalDateTime.now();
 
-    public String getPerformedBy() { return performedBy; }
-    public void setPerformedBy(String performedBy) { this.performedBy = performedBy; }
+    public AuditLogRecord() {}
 
-    public LocalDateTime getPerformedAt() { return performedAt; }
-    public void setPerformedAt(LocalDateTime performedAt) { this.performedAt = performedAt; }
+    public AuditLogRecord(Long requestId, String eventType, String details) {
+        this.requestId = requestId;
+        this.eventType = eventType;
+        this.details = details;
+        this.loggedAt = LocalDateTime.now();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(Long requestId) {
+        this.requestId = requestId;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+    public LocalDateTime getLoggedAt() {
+        return loggedAt;
+    }
+
+    public void setLoggedAt(LocalDateTime loggedAt) {
+        this.loggedAt = loggedAt;
+    }
 }
