@@ -23,6 +23,10 @@ public class ApprovalActionServiceImpl implements ApprovalActionService {
     public ApprovalAction findByLevelAndAction(Integer level, String action) {
         return repository.findByLevelAndAction(level, action)
                 .orElseThrow(() ->
-                        new RuntimeException("ApprovalAction not found"));
+                        new RuntimeException(
+                                "ApprovalAction not found for level "
+                                        + level + " and action " + action
+                        )
+                );
     }
 }
