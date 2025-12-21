@@ -7,11 +7,7 @@ public interface ApprovalRequestService {
 
     ApprovalRequest createRequest(ApprovalRequest request);
 
-    ApprovalRequest updateRequest(ApprovalRequest request);
-
-    ApprovalRequest findById(Long id);
+    List<ApprovalRequest> getAllRequests();
 
     List<ApprovalRequest> getRequestsByRequester(Long requesterId);
-
-    List<ApprovalRequest> getAllRequests();
 }
