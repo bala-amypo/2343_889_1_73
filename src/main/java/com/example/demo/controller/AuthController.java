@@ -15,10 +15,6 @@ public class AuthController {
         this.userService = userService;
     }
 
-    /**
-     * REGISTER USER
-     * URL: POST /auth/register
-     */
     @PostMapping("/register")
     public User register(@RequestBody User user,
                          @RequestParam String role) {
