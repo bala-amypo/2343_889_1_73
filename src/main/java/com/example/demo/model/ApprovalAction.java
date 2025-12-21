@@ -6,44 +6,22 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "approval_actions")
 public class ApprovalAction {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private Long requestId;
-
-    @Column(nullable = false)
     private Long approverId;
-
-    @Column(nullable = false)
     private Integer levelNumber;
-
-    @Column(nullable = false)
-    private String action;
-
+    private String action; // APPROVED / REJECTED
     private String comments;
-
-    @Column(nullable = false)
     private LocalDateTime actionDate = LocalDateTime.now();
 
     public ApprovalAction() {}
 
-    public ApprovalAction(Long requestId, Long approverId, Integer levelNumber, String action, String comments) {
-        this.requestId = requestId;
-        this.approverId = approverId;
-        this.levelNumber = levelNumber;
-        this.action = action;
-        this.comments = comments;
-        this.actionDate = LocalDateTime.now();
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getRequestId() {
@@ -88,9 +66,5 @@ public class ApprovalAction {
 
     public LocalDateTime getActionDate() {
         return actionDate;
-    }
-
-    public void setActionDate(LocalDateTime actionDate) {
-        this.actionDate = actionDate;
     }
 }

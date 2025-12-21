@@ -6,38 +6,20 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "audit_log_records")
 public class AuditLogRecord {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private Long requestId;
-
-    @Column(nullable = false)
     private String eventType;
-
-    @Lob
-    @Column(columnDefinition = "TEXT")
     private String details;
-
-    @Column(nullable = false)
     private LocalDateTime loggedAt = LocalDateTime.now();
 
     public AuditLogRecord() {}
 
-    public AuditLogRecord(Long requestId, String eventType, String details) {
-        this.requestId = requestId;
-        this.eventType = eventType;
-        this.details = details;
-        this.loggedAt = LocalDateTime.now();
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getRequestId() {
@@ -66,9 +48,5 @@ public class AuditLogRecord {
 
     public LocalDateTime getLoggedAt() {
         return loggedAt;
-    }
-
-    public void setLoggedAt(LocalDateTime loggedAt) {
-        this.loggedAt = loggedAt;
     }
 }
