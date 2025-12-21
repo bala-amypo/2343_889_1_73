@@ -15,8 +15,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public User register(@RequestBody User user,
-                         @RequestParam String role) {
-        return userService.registerUser(user, role);
+    public User register(@RequestBody User user) {
+        return userService.registerUser(user, "USER");
     }
 }
