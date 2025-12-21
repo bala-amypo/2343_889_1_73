@@ -4,10 +4,10 @@ import com.example.demo.model.WorkflowTemplate;
 import java.util.List;
 
 public interface WorkflowTemplateService {
-    WorkflowTemplate createTemplate(WorkflowTemplate template);
-    WorkflowTemplate updateTemplate(Long id, WorkflowTemplate template);
-    WorkflowTemplate getTemplateById(Long id);
-    List<WorkflowTemplate> getAllTemplates();
-    WorkflowTemplate activateTemplate(Long id);
-    WorkflowTemplate deactivateTemplate(Long id);
+
+    WorkflowTemplate save(WorkflowTemplate template);
+
+    WorkflowTemplate findById(Long id);
+
+    List<WorkflowTemplate> findAll();
 }

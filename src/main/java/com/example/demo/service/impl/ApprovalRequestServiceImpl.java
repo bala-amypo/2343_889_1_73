@@ -17,7 +17,7 @@ public class ApprovalRequestServiceImpl implements ApprovalRequestService {
     }
 
     @Override
-    public ApprovalRequest save(ApprovalRequest request) {
+    public ApprovalRequest createRequest(ApprovalRequest request) {
         return repository.save(request);
     }
 
@@ -29,12 +29,16 @@ public class ApprovalRequestServiceImpl implements ApprovalRequestService {
     @Override
     public ApprovalRequest findById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("ApprovalRequest not found"));
+                .orElseThrow(() -> new RuntimeException("ApprovalRequest not found"));
     }
 
     @Override
-    public List<ApprovalRequest> findAll() {
+    public List<ApprovalRequest> getRequestsByRequester(Long requesterId) {
+        return repository.findByRequesterId(requesterId);
+    }
+
+    @Override
+    public List<ApprovalRequest> getAllRequests() {
         return repository.findAll();
     }
 }
