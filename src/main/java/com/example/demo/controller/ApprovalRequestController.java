@@ -22,12 +22,7 @@ public class ApprovalRequestController {
     }
 
     @GetMapping
-    public List<ApprovalRequest> getAll(
-            @RequestParam(required = false) Long requesterId) {
-
-        if (requesterId != null) {
-            return service.getRequestsByRequester(requesterId);
-        }
+    public List<ApprovalRequest> getAll() {
         return service.getAllRequests();
     }
 }

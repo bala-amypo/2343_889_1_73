@@ -14,19 +14,7 @@ public class ApprovalActionServiceImpl implements ApprovalActionService {
         this.repository = repository;
     }
 
-    @Override
-    public ApprovalAction save(ApprovalAction action) {
+    public ApprovalAction recordAction(ApprovalAction action) {
         return repository.save(action);
-    }
-
-    @Override
-    public ApprovalAction findByLevelAndAction(Integer level, String action) {
-        return repository.findByLevelAndAction(level, action)
-                .orElseThrow(() ->
-                        new RuntimeException(
-                                "ApprovalAction not found for level "
-                                        + level + " and action " + action
-                        )
-                );
     }
 }

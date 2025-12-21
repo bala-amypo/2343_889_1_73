@@ -16,29 +16,17 @@ public class ApprovalRequestServiceImpl implements ApprovalRequestService {
         this.repository = repository;
     }
 
-    @Override
     public ApprovalRequest createRequest(ApprovalRequest request) {
+        request.setStatus("PENDING");
+        request.setCurrentLevel(1);
         return repository.save(request);
     }
 
-    @Override
-    public ApprovalRequest updateRequest(ApprovalRequest request) {
-        return repository.save(request);
-    }
-
-    @Override
-    public ApprovalRequest findById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("ApprovalRequest not found"));
-    }
-
-    @Override
-    public List<ApprovalRequest> getRequestsByRequester(Long requesterId) {
-        return repository.findByRequesterId(requesterId);
-    }
-
-    @Override
     public List<ApprovalRequest> getAllRequests() {
         return repository.findAll();
+    }
+
+    public List<ApprovalRequest> getRequestsByRequester(Long requesterId) {
+        return repository.findByRequesterId(requesterId);
     }
 }

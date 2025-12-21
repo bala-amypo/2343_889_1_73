@@ -19,22 +19,10 @@ public class UserServiceImpl implements UserService {
         this.roleRepository = roleRepository;
     }
 
-    @Override
     public User registerUser(User user, String roleName) {
-
         Role role = roleRepository.findByName(roleName)
-                .orElseThrow(() -> new RuntimeException("Role not found"));
-
-        
+                .orElseGet(() -> roleRepository.save(new Role(roleName)));
         user.getRoles().add(role);
-
         return userRepository.save(user);
-    }
-
-    @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() ->
-                        new RuntimeException("User not found: " + username));
     }
 }
