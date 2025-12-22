@@ -16,10 +16,12 @@ public class WorkflowStepConfigServiceImpl implements WorkflowStepConfigService 
         this.repository = repository;
     }
 
+    @Override
     public WorkflowStepConfig createStep(WorkflowStepConfig step) {
         return repository.save(step);
     }
 
+    @Override
     public List<WorkflowStepConfig> getStepsForTemplate(Long templateId) {
         return repository.findByTemplateIdOrderByLevelNumberAsc(templateId);
     }
