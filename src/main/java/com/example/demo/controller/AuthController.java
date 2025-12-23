@@ -3,64 +3,68 @@ package com.example.demo.controller;
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.dto.AuthResponse;
 import com.example.demo.dto.RegisterRequest;
-import com.example.demo.model.Role;
 import com.example.demo.model.User;
 import com.example.demo.security.JwtTokenProvider;
 import com.example.demo.service.UserService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/auth")
-@Tag(name = "Authentication", description = "Authentication endpoints")
 public class AuthController {
+
     private final UserService userService;
     private final JwtTokenProvider jwtTokenProvider;
-    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
-    public AuthController(UserService userService, JwtTokenProvider jwtTokenProvider,
-                          PasswordEncoder passwordEncoder) {
+    public AuthController(
+            UserService userService,
+            JwtTokenProvider jwtTokenProvider,
+            AuthenticationManager authenticationManager
+    ) {
         this.userService = userService;
         this.jwtTokenProvider = jwtTokenProvider;
-        this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
     }
 
     @PostMapping("/register")
-    @Operation(summary = "Register a new user")
-    public ResponseEntity<User> register(@RequestBody RegisterRequest request) {
+    public User register(@RequestBody RegisterRequest request) {
         User user = new User();
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
-        
-        String roleName = request.getRole() != null ? request.getRole() : "REQUESTER";
-        User registered = userService.registerUser(user, roleName);
-        
-        return ResponseEntity.ok(registered);
+
+        return userService.registerUser(user, request.getRole());
     }
 
     @PostMapping("/login")
-    @Operation(summary = "Login user and get JWT token")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
-        User user = userService.findByUsernameOrEmail(request.getUsernameOrEmail());
-        
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            return ResponseEntity.status(401).build();
-        }
+    public AuthResponse login(@RequestBody AuthRequest request) {
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getUsernameOrEmail(),
+                        request.getPassword()
+                )
+        );
+
+        org.springframework.security.core.userdetails.User principal =
+                (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
+
+        User user = userService.findByUsername(principal.getUsername());
 
         String token = jwtTokenProvider.generateToken(user);
-        
-        AuthResponse response = new AuthResponse(
-            token,
-            user.getUsername(),
-            user.getEmail(),
-            user.getRoles().stream().map(Role::getName).collect(Collectors.toSet())
-        );
-        
-        return ResponseEntity.ok(response);
+
+        List<String> roles = principal.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+
+        return new AuthResponse(token, user.getUsername(), roles);
     }
 }
