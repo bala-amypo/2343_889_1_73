@@ -15,11 +15,7 @@ public class ApprovalAction {
 
     private Long approverId;
 
-    /**
-     * IMPORTANT:
-     * - Field name MUST be levelNumber (tests expect it)
-     * - Column name MUST be level (repository expects it)
-     */
+   
     @Column(name = "level")
     private Integer levelNumber;
 
@@ -51,13 +47,19 @@ public class ApprovalAction {
         this.approverId = approverId;
     }
 
-    // ✅ TESTS REQUIRE THESE EXACT METHODS
+    
     public Integer getLevelNumber() {
         return levelNumber;
     }
 
     public void setLevelNumber(Integer levelNumber) {
         this.levelNumber = levelNumber;
+    }
+
+    
+    @Transient
+    public Integer getLevel() {
+        return this.levelNumber;
     }
 
     public String getAction() {
