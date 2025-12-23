@@ -15,7 +15,8 @@ public class ApprovalAction {
 
     private Long approverId;
 
-    private Integer levelNumber;
+    @Column(name = "level")
+    private Integer level;
 
     private String action;
 
@@ -45,12 +46,12 @@ public class ApprovalAction {
         this.approverId = approverId;
     }
 
-    public Integer getLevelNumber() {
-        return levelNumber;
+    public Integer getLevel() {
+        return level;
     }
 
-    public void setLevelNumber(Integer levelNumber) {
-        this.levelNumber = levelNumber;
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public String getAction() {
