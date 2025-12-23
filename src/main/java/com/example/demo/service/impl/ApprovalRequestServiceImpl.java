@@ -1,7 +1,6 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.ApprovalRequest;
-import com.example.demo.model.WorkflowStepConfig;
 import com.example.demo.repository.ApprovalActionRepository;
 import com.example.demo.repository.ApprovalRequestRepository;
 import com.example.demo.repository.WorkflowStepConfigRepository;
@@ -33,7 +32,7 @@ public class ApprovalRequestServiceImpl implements ApprovalRequestService {
 
     @Override
     public ApprovalRequest createRequest(ApprovalRequest request) {
-        request.setStatus("PENDING");
+        request.setStatus("PENDING");   
         request.setCurrentLevel(1);
         return approvalRequestRepository.save(request);
     }

@@ -23,7 +23,7 @@ public class AuditLogServiceImpl implements AuditLogService {
         record.setRequestId(requestId);
         record.setEventType(eventType);
         record.setDetails(details);
-        record.setLoggedAt(LocalDateTime.now());
+        record.setLoggedAt(LocalDateTime.now()); 
         return auditLogRecordRepository.save(record);
     }
 
