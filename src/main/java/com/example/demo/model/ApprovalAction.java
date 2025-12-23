@@ -15,9 +15,8 @@ public class ApprovalAction {
 
     private Long approverId;
 
-   
-    @Column(name = "level")
-    private Integer levelNumber;
+    
+    private Integer level;
 
     private String action;
 
@@ -47,19 +46,24 @@ public class ApprovalAction {
         this.approverId = approverId;
     }
 
-    
+ 
+
+    @Transient
     public Integer getLevelNumber() {
-        return levelNumber;
+        return this.level;
     }
 
     public void setLevelNumber(Integer levelNumber) {
-        this.levelNumber = levelNumber;
+        this.level = levelNumber;
     }
 
-    
-    @Transient
+
     public Integer getLevel() {
-        return this.levelNumber;
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public String getAction() {
