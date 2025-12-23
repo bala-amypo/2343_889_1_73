@@ -15,7 +15,6 @@ public class Role {
     @Column(unique = true, nullable = false)
     private String name;
 
-   
     @ManyToMany(mappedBy = "roles")
     private Set<User> users = new HashSet<>();
 
@@ -33,7 +32,17 @@ public class Role {
         return name;
     }
 
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Set<User> getUsers() {
         return users;
+    }
+
+    // Optional but safe
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }

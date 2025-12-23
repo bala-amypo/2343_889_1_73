@@ -23,7 +23,7 @@ public class JwtTokenProvider {
                     "roles",
                     user.getRoles()
                         .stream()
-                        .map(r -> r.getName())
+                        .map(Role -> Role.getName())
                         .collect(Collectors.toList())
                 )
                 .setIssuedAt(new Date())
@@ -34,6 +34,12 @@ public class JwtTokenProvider {
 
     public String getUsernameFromToken(String token) {
         return parseClaims(token).getSubject();
+    }
+
+   
+    public Long getUserIdFromToken(String token) {
+        Object value = parseClaims(token).get("userId");
+        return value == null ? null : Long.valueOf(value.toString());
     }
 
     public boolean validateToken(String token) {
