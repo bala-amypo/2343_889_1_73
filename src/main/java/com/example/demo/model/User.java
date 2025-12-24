@@ -63,7 +63,7 @@ public class User {
         return roles;
     }
 
-    // IMPORTANT for tests
+   
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }

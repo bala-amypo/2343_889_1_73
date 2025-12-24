@@ -41,7 +41,7 @@ public class Role {
         return users;
     }
 
-    // Optional but safe
+    
     public void setUsers(Set<User> users) {
         this.users = users;
     }
